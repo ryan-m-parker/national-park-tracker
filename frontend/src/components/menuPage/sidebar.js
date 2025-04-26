@@ -10,7 +10,7 @@ const SideBar = () => {
     return (
         <Card raised style={{ height: '100%', maxHeight: 'calc(100vh - 64px)' }}>
             {selectedPark !== null
-                ? <ParkInfoPanel />
+                ? <ParkInfoPanel key={selectedPark.parkCode} selectedPark={selectedPark}/>
                 : (
                     <List style={{ maxHeight: '100%', overflow: 'auto' }}>
                         {parks.map((park) => (

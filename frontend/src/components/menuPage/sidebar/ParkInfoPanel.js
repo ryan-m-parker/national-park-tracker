@@ -24,7 +24,7 @@ const ParkInfoPanel = () => {
                         checked={visitedParks.find((visitedPark) => visitedPark.parkCode === parkCode)}
                         checkedIcon={<ParkSharp />}
                         icon={<ParkOutlined />}
-                        onChange={(event) => {
+                        onChange={async (event) => {
                             const visitedPark = visitedParks.find((visitedPark) => visitedPark.parkCode === parkCode);
                             const checked = event.target.checked;
                             let newVisitedParks = visitedParks;
@@ -32,7 +32,7 @@ const ParkInfoPanel = () => {
                                 newVisitedParks = visitedParks.filter((visitedPark) => visitedPark.parkCode !== parkCode);
                                 markParkNotVisited(visitedPark);
                             } else if (checked && !visitedPark) {
-                                newVisitedParks = [...visitedParks, markParkVisited(parkCode)];
+                                newVisitedParks = [...visitedParks, await markParkVisited(parkCode)];
                             }
                             setVisitedParks(newVisitedParks);
                         }}

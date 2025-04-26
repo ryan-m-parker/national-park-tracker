@@ -1,5 +1,5 @@
 export const markParkVisited = async (parkCode) => {
-    fetch(`/visits`, {
+    return fetch(`/visits`, {
         method: "POST",
         body: JSON.stringify({
             parkCode
@@ -7,6 +7,8 @@ export const markParkVisited = async (parkCode) => {
         headers: {
             "Content-Type": "application/json",
           }
+    }).then(async data => {
+        return await data.json();
     }).catch(error => {
             console.log(error);
         })

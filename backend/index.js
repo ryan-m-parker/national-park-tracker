@@ -12,11 +12,14 @@ app.set('db', new sqlite3.Database('./nationalParkTracker.db', (err) => {
     console.log('Connected to the database.');
 }));
 
-const visitsController = require('./controllers/visitsController')
+const visitsRoute = require('./routes/visitsController')
 
-app.use(express.static(path.join(__dirname, '../frontend/build')));
 app.use(express.json());
-app.use('/visits', visitsController);
+app.use('/visits', visitsRoute);
+app.use(express.static(path.join(__dirname, '../frontend/build')));
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, '../frontend/build/index.html'));
+});
 
 app.listen(port, () => {
     console.log(`Server listening on port ${port}.`);

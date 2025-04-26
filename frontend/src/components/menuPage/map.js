@@ -1,6 +1,6 @@
 import { ComposableMap, Geographies, Geography, Marker } from "react-simple-maps"
 import { ParksContext } from "../../contexts/ParksProvider";
-import { useContext } from "react";
+import { useContext, useMemo } from "react";
 import { Container } from "@mui/material";
 import FlagTwoTone from "./map/FlagTwoTone";
 import TreeTwoTone from "./map/TreeTwoTone";
@@ -43,7 +43,7 @@ const Map = () => {
                         </>
                     )}
                 </Geographies>
-                {continentalUSParks.map((park) => (
+                {useMemo(() => continentalUSParks.map((park) => (
                     <Marker key={park.name} coordinates={[Number(park.longitude), Number(park.latitude)]} id={park.name} onClick={() => setSelectedPark(park)} style={{ fontSize: '2rem' }}>
                         {visitedParks.find((visitedPark) => visitedPark.parkCode === park.parkCode) ? park.parkCode === selectedPark?.parkCode ? (
                             <FlagTwoTone primaryColor="#496a81" borderColor="#334B5B" borderWidth={2.5} />
@@ -55,7 +55,7 @@ const Map = () => {
                             <TreeTwoTone primaryColor="#4A7729" />
                         )}
                     </Marker>
-                ))}
+                )), [continentalUSParks, visitedParks, setSelectedPark, selectedPark?.parkCode])}
             </ComposableMap>
         </Container>
     );
